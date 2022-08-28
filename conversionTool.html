@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Unit Conversion Tool </title>
+    <link rel="shortcut icon" type="image/png" href="/conversionTool/conversion.png" />
+
+    <script src="https://kit.fontawesome.com/9a316b60f9.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300&display=swap" rel="stylesheet">
+    <link href="/ConversionTool/all.css" rel="stylesheet">
+
+</head>
+<style>
+    body {
+        font-family: "Questrial", sans-serif;
+        text-align: center;
+        background-color: #28374d;
+    }
+
+    h1 {
+        font-size: 80px;
+        color: #00E0c7;
+    }
+
+    textarea {
+        border-width: 1px;
+        border-style: solid;
+        border-color: white;
+        width: 500px;
+        height: 250px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        border-radius: 15px;
+        font-size: 40px;
+        font-family: 'Questrial';
+        color: white;
+        background-color: #2c3e5a;
+    }
+
+    textarea::placeholder {
+        font-size: 40px;
+        font-family: "Questrial", sans-serif;
+        color: white;
+        padding-top: 80px;
+        opacity: 70%;
+    }
+
+    select {
+        font-family: 'Red Hat Display', sans-serif;
+        font-size: 25px;
+        background-color: #006270;
+        border-color: #006270;
+        border-radius: 25px;
+        display: block;
+        margin: 0 auto;
+        padding: 20px;
+        color: #009394;
+        cursor: pointer;
+        border-color: white;
+    }
+
+    select:hover {
+        color: #00E0c7;
+        transform: translateY(-3px);
+    }
+
+    .selectors {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #calculator {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        font-family: "Teko", sans-serif;
+        grid-template-columns: repeat(4, 100px);
+        grid-gap: 10px;
+    }
+
+    button {
+        font-family: 'Red Hat Display', sans-serif;
+        background-color: #2b353c;
+        border: 0;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 20px;
+        color: white;
+    }
+
+    button:hover {
+        background-color: #006270;
+        ;
+        cursor: pointer;
+    }
+
+    #allClear,
+    #equalButton {
+        grid-column: span 2;
+    }
+
+    #selector2 option:not(:first-child) {
+        display: none;
+    }
+
+    .container.dark {
+        background-color: #006270;
+    }
+
+    .container.dark textarea {
+        color: #2b353c;
+        background-color: white;
+        box-shadow: 2px 4px 10px rgba(.3, .3, .3, .3);
+        border-color: white;
+    }
+
+    .container.dark textarea::placeholder {
+        color: #2b353c;
+    }
+
+    .container.dark select {
+        background-color: white;
+        box-shadow: 2px 4px 10px rgba(.3, .3, .3, .3);
+        border-color: white;
+        color: #2b353c;
+    }
+
+    .container.dark select:hover {
+        color: #006270;
+    }
+
+    .toggle {
+        width: 4rem;
+        height: 4rem;
+        position: absolute;
+        color: black;
+        background-color: white;
+        top: 7rem;
+        right: 7rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .container.dark.toggle {
+        background-color: #424b55;
+        color: black;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>UNIT CONVERSION TOOL</h1>
+        <div class="toggle">
+            <i class="fa-solid fa-sun"></i>
+        </div>
+        <form>
+            <textarea id="input" placeholder="What do you want to calculate and/or convert?"></textarea>
+        </form>
+        <div class="selectors">
+            <select id="selector">
+                <option value="none">S E L E C T</option>
+                <option class="category" value="distance">DISTANCE</option>
+                <option class="category" value="temperature">TEMPERATURE</option>
+            </select>
+            <select id="selector2">
+                <option value="none2">S E L E C T</option>
+                <option class="temperature" value="celsius-farenheit">CELSIUS TO FARENHEIT</option>
+                <option class="temperature" value="farenheit-celsius">FARENHEIT TO CELSIUS</option>
+                <option class="distance" value="meter-yard">METER TO YARD</option>
+                <option class="distance" value="yard-meter">YARD TO METER</option>
+                <option class="distance" value="centimeter-inch">CENTIMETER TO INCH</option>
+                <option class="distance" value="inch-centimeter">INCH TO CENTIMETER</option>
+                <option class="distance" value="mile-kilometer">MILE TO KILOMETER</option>
+                <option class="distance" value="kilometer-mile">KILOMETER TO MILE</option>
+            </select>
+        </div>
+        <form>
+            <textarea id="output"></textarea>
+        </form>
+        <div id="calculator">
+            <button id="allClear" value="AC">AC</button>
+            <button id="deleteButton" value="DEL">DEL</button>
+            <button class="inputButton" id="divisionButton" value="/">/</button>
+            <button class="inputButton" value="1">1</button>
+            <button class="inputButton" value="2">2</button>
+            <button class="inputButton" value="3">3</button>
+            <button class="inputButton" id="multiplicationButton" value="*">*</button>
+            <button class="inputButton" value="4">4</button>
+            <button class="inputButton" value="5">5</button>
+            <button class="inputButton" value="6">6</button>
+            <button class="inputButton" id="additionButton" value="+">+</button>
+            <button class="inputButton" value="7">7</button>
+            <button class="inputButton" value="8">8</button>
+            <button class="inputButton" value="9">9</button>
+            <button class="inputButton" id="subtractionButton" value="-">-</button>
+            <button class="inputButton" value="0">0</button>
+            <button class="inputButton" value=".">.</button>
+            <button class="inputButton" id="equalButton" value="=">=</button>
+        </div>
+    </div>
+</body>
+<script>
+    const container = document.querySelector(".container");
+    const toggle = document.querySelector(".toggle");
+    const outPut = document.getElementById("output");
+    const keyText = document.getElementById("input");
+    const select = document.getElementById("selector");
+    const select2 = document.getElementById("selector2");
+    const options = document.querySelectorAll("#selector2 option");
+    const temperatures = document.getElementsByClassName("temperature");
+    const distances = document.getElementsByClassName("distance");
+    let selectedValue;
+
+    // This function is used to hide/show certain conversion options based on the category the user selects. 
+    function divisionSelectHandler(e) {
+        /**
+         * First, this portion of the function hides all conversion options. 
+         * Then, based on the categoryValue, conversion options pertaining to the selected categoryValue will be displayed. 
+         */
+        const categoryValue = e.target.value;
+        for (let i = 1; i < options.length; i += 1) {
+            options[i].style.display = "none";
+        }
+        if (categoryValue === "distance") {
+            for (let i = 0; i < distances.length; i += 1) {
+                distances[i].style.display = "inline";
+            }
+            outPut.value = "PLEASE SELECT THE UNITS";
+        }
+        else if (categoryValue === "temperature") {
+            for (let i = 0; i < temperatures.length; i += 1) {
+                temperatures[i].style.display = "inline";
+            }
+            outPut.value = "PLEASE SELECT THE UNITS";
+        }
+
+        /**
+         * This portion of the function sets the value of both selectedValue and select2 as "none2" so 
+         * that when convertUnit() occurs, the value of outPut is appropriately displayed.
+         * The value of select2 is also set as 'none2' due to a problem when the category is changed, the option button
+         * remains the same as opposed to returning to "Please Select".
+         */
+        select2.value = "none2";
+        selectedValue = "none2";
+        convertUnit();
+
+        // This code resets the input when the category is switched. 
+        keyText.value = "";
+    }
+
+    // This function changes the value of the output accordingly based on the conversion option chosen.
+    function convertUnit() {
+        const input = keyText.value;
+        if (selectedValue === undefined || selectedValue === "none2") {
+            outPut.value = "PLEASE SELECT THE UNITS";
+        }
+        else if (isNaN(input)) {
+            outPut.value = "NOT A NUMBER";
+        }
+        else if (selectedValue === "meter-yard") {
+            outPut.value = input * 1.09361 + "yd";
+        }
+        else if (selectedValue === "yard-meter") {
+            outPut.value = input / 1.09361 + "m";
+        }
+        else if (selectedValue === "centimeter-inch") {
+            outPut.value = input * 0.393701 + "in";
+        }
+        else if (selectedValue === 'inch-centimeter') {
+            outPut.value = input * 2.54 + "cm";
+        }
+        else if (selectedValue === 'mile-kilometer') {
+            outPut.value = input * 1.609 + "km";
+        }
+        else if (selectedValue === 'kilometer-mile') {
+            outPut.value = input / 1.609 + "mi";
+        }
+        else if (selectedValue === "celsius-farenheit") {
+            outPut.value = (input * 1.8) + 32 + "˚F";
+        }
+        else {
+            outPut.value = (input - 32) * 5 / 9 + "˚C";
+        }
+    }
+
+    // This function designates the value of selectedValue as e.target.value in order for convertUnit() to run appropriately based on the option chosen.
+    function handleChangeSelect(e) {
+        selectedValue = e.target.value;
+        convertUnit();
+    }
+
+    // This function is for dark-light mode that hasn't been finished yet.
+    toggle.addEventListener("click", () => {
+        container.classList.toggle("dark");
+        toggle.firstElementChild.className = "fa-solid fa-brightness";
+    });
+
+    // The "keyup" event allows the value of the output to be responsive to every key that is released.
+    keyText.addEventListener("keyup", convertUnit);
+
+    // This addEventListener waits for a change in the left button to take place and when it does, divisionSelectHandler is executed. 
+    select.addEventListener("change", divisionSelectHandler);
+
+    // This addEventListener waits for a change in the right button to take place and when it does, handleChangeSelect is executed. 
+    select2.addEventListener("change", handleChangeSelect);
+
+
+
+
+
+    //JavaScript for the calculator portion 
+    const buttonInput = document.querySelectorAll(".inputButton");
+    const equal = document.getElementById("equalButton");
+    const clear = document.getElementById("allClear");
+    const deletion = document.getElementById("deleteButton");
+    const input = keyText.value;
+    //why doesn't input work but keyText.value work?  
+    let equalPressed = 0;
+
+    buttonInput.forEach((buttonClass) => {
+        buttonClass.addEventListener("click", () => {
+            if (equalPressed == 1) {
+                keyText.value = "";
+                equalPressed == 0;
+            }
+            keyText.value += buttonClass.value;
+        });
+    });
+
+    //Some codes use eval(), why does it not work in this case? 
+
+    //For Clearing the Whole Input
+    clear.addEventListener("click", () => {
+        keyText.value = "";
+    });
+    //For Deleting Each Input
+    deletion.addEventListener("click", () => {
+        keyText.value = keyText.value.substr(0, keyText.value.length - 1);
+    });
+
+
+</script>
+
+</html>
